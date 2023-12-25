@@ -13,13 +13,14 @@ exports.createSignup = async (req, res) => {
 
     // Setting userType to "Teacher"
     req.body.userType = "Teacher";
+    
     const TeacherData = await createSignup(password, userType, course, userType, email);
     TeacherData.checkPassword(password, TeacherData.password);
     TeacherData.save();
     res.json(TeacherData);
    
     };
-    exports.login = async (req, res, next) => {
+    exports.login = async (req, res) => {
         const { email, password } = req.body;
         const { success, message, status } = await loginwithpassword(
           email,
@@ -30,3 +31,8 @@ exports.createSignup = async (req, res) => {
           message,
         });
       };  
+
+      exports.data = async (req,res)=>{
+        const datarecords = SignupModel.find();
+        res.json(datarecords);
+        }

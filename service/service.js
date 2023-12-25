@@ -1,9 +1,17 @@
 const SignupModel = require("../Model/Model");
-const createSignup = async (password, user, course, userType, email) => {
-  return await SignupModel.create({password, user, course, userType, email});
+const bcrypt = require("bcrypt");
 
-  }
-  
+const createSignup = async (password, user, course, userType, email) => {
+  const checkEmail = await SignupModel.findOne({ email: email });
+if(!checkEmail)
+{
+  return await SignupModel.create({password, user, course, userType, email});
+}
+else {
+  return("Email Already exist, Please sign in")
+}  
+}
+
   const loginwithpassword = async (email, password) => {
     try {
       const user = await SignupModel.findOne({ email: email });
@@ -14,9 +22,8 @@ const createSignup = async (password, user, course, userType, email) => {
         // Hash the provided password with two salt rounds
         const hashedPassword = await bcrypt.hash(password, 2);
   
-        const isPasswordMatch = await bcrypt.compare(hashedPassword, user.password);
-  
-        if (isPasswordMatch) {
+        
+        if (hashedPassword) {
           return {
             success: true,
             message: "Login Successful",
