@@ -1,4 +1,4 @@
-const SignupModel = require("../Model/Model");
+const {SignupModel, Assignmentmodel} = require("../Model/Model");
 const bcrypt = require("bcrypt");
 
 const createSignup = async (password, user, course, userType, email) => {
@@ -8,7 +8,8 @@ if(!checkEmail)
   return await SignupModel.create({password, user, course, userType, email});
 }
 else {
-  return("Email Already exist, Please sign in")
+  console.log("Email Already exist, Please sign in");
+  
 }  
 }
 

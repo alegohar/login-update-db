@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { createSignup, login, data } = require("../controller/Controller");
+const { createSignup, loginwithpassword, data } = require("../controller/Controller");
 const { StudentSignup } = require("../controller/Student-controller");
 const notifyEmail = require("../mail/notifyEmail");
 
 router.post("/signup", createSignup);
 router.post("/studentsignup", StudentSignup);
-router.post("/login", login);
+router.post("/login", loginwithpassword);
 router.get('/data', data);
 
 router.all("/send", async (req, res) => {

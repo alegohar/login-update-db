@@ -2,6 +2,16 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 2;
 
+const AssignmentSubmit = new mongoose.Schema(
+  {
+ user: String,
+ course: String,
+ date: String,
+ marks: Number,   
+  }
+)
+
+const Assignmentmodel = mongoose.model("submitted-assignment",AssignmentSubmit)
 const SignupSchema = new mongoose.Schema(
     {
         password: String,
@@ -25,4 +35,4 @@ const SignupSchema = new mongoose.Schema(
       });
       const SignupModel = mongoose.model("signups", SignupSchema);
 
-      module.exports = SignupModel;
+      module.exports = {SignupModel, Assignmentmodel};
